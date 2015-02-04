@@ -112,7 +112,7 @@ Rserve.determine_size = function(value, forced_type)
             + header_size // XT_LIST_TAG (attribute)
               + header_size + "class".length + 3 // length of 'class' + padding (tag as XT_SYMNAME)
               + Rserve.determine_size(["javascript_function"]); // length of class name
-        
+
     default:
         throw new Rserve.RserveError("Internal error, can't handle type " + t);
     }
@@ -134,7 +134,7 @@ Rserve.write_into_view = function(value, array_buffer_view, forced_type, convert
         payload_start = 8;
         write_view.setInt32(0, t + ((size - 8) << 8));
         write_view.setInt32(4, (size - 8) >>> 24);
-    } else { 
+    } else {
         payload_start = 4;
         write_view.setInt32(0, t + ((size - 4) << 8));
     }

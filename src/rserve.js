@@ -4,7 +4,7 @@ function _encode_command(command, buffer, msg_id) {
     if (!_.isArray(buffer))
         buffer = [buffer];
     if (!msg_id) msg_id = 0;
-    var length = _.reduce(buffer, 
+    var length = _.reduce(buffer,
                           function(memo, val) {
                               return memo + val.byteLength;
                           }, 0),
@@ -73,7 +73,7 @@ Rserve.create = function(opts) {
             throw new Error("Bad rng, no cookie");
         return k;
     };
-    
+
     function convert_to_hash(value) {
         var hash = fresh_hash();
         captured_functions[hash] = value;
@@ -101,7 +101,7 @@ Rserve.create = function(opts) {
             return buffer;
         }
     }
-    
+
     function hand_shake(msg)
     {
         msg = msg.data;
@@ -121,9 +121,9 @@ Rserve.create = function(opts) {
             }
         } else {
             var view = new DataView(msg);
-            var header = String.fromCharCode(view.getUint8(0)) + 
-                String.fromCharCode(view.getUint8(1)) + 
-                String.fromCharCode(view.getUint8(2)) + 
+            var header = String.fromCharCode(view.getUint8(0)) +
+                String.fromCharCode(view.getUint8(1)) +
+                String.fromCharCode(view.getUint8(2)) +
                 String.fromCharCode(view.getUint8(3));
 
             if (header === 'RsOC') {
@@ -153,7 +153,7 @@ Rserve.create = function(opts) {
         if (!received_handshake) {
             hand_shake(msg);
             return;
-        } 
+        }
         if (typeof msg.data === 'string') {
             opts.on_raw_string && opts.on_raw_string(msg.data);
             return;
@@ -340,7 +340,7 @@ Rserve.create = function(opts) {
         },
         set: function(key, value, k) {
             _cmd(Rserve.Rsrv.CMD_setSEXP, [_encode_string(key), _encode_value(value)], k, "");
-        }, 
+        },
 
         //////////////////////////////////////////////////////////////////////
         // ocap mode
@@ -417,7 +417,7 @@ Rserve.wrap_ocap = function(s, ocap) {
         var k = values.pop();
         s.OCcall(ocap, values, function(err, v) {
             if (!_.isUndefined(v))
-                v = Rserve.wrap_all_ocaps(s, v); 
+                v = Rserve.wrap_all_ocaps(s, v);
             k(err, v);
         });
     };

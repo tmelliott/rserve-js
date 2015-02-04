@@ -20,7 +20,7 @@
     })();
 
     Rserve.EndianAwareDataView = (function() {
-        
+
         var proto = {
             'setInt8': function(i, v) { return this.view.setInt8(i, v); },
             'setUint8': function(i, v) { return this.view.setUint8(i, v); },
@@ -75,10 +75,10 @@
             offset: o,
             length: l,
             data_view: function() {
-                return new Rserve.EndianAwareDataView(this.buffer, this.offset, 
+                return new Rserve.EndianAwareDataView(this.buffer, this.offset,
                                                       this.buffer.byteLength - this.offset);
             },
-            make: function(ctor, new_offset, new_length) { 
+            make: function(ctor, new_offset, new_length) {
                 new_offset = _.isUndefined(new_offset) ? 0 : new_offset;
                 new_length = _.isUndefined(new_length) ? this.length : new_length;
                 var element_size = ctor.BYTES_PER_ELEMENT || 1;
@@ -92,8 +92,8 @@
                     }
                     return new ctor(output_buffer);
                 } else {
-                    return new ctor(this.buffer, 
-                                    this.offset + new_offset, 
+                    return new ctor(this.buffer,
+                                    this.offset + new_offset,
                                     n_els);
                 }
             },

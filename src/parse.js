@@ -73,9 +73,9 @@ function read(m)
 
         read_null: lift(function(a, l) { return Rserve.Robj.null(a); }),
 
-        read_unknown: lift(function(a, l) { 
+        read_unknown: lift(function(a, l) {
             this.offset += l;
-            return Rserve.Robj.null(a); 
+            return Rserve.Robj.null(a);
         }),
 
         read_string_array: function(attributes, length) {
@@ -135,10 +135,10 @@ function read(m)
         }
     };
 
-    that.read_clos = bind(that.read_sexp, function(formals) { 
-              return bind(that.read_sexp, function(body)    { 
+    that.read_clos = bind(that.read_sexp, function(formals) {
+              return bind(that.read_sexp, function(body)    {
               return lift(function(a, l) {
-              return Rserve.Robj.clos(formals, body, a); 
+              return Rserve.Robj.clos(formals, body, a);
               }, 0);
               } );
     });
@@ -172,8 +172,8 @@ function read(m)
         }, 0);
     });
 
-    function xf(f, g) { return bind(f, function(t) { 
-        return lift(function(a, l) { return g(t, a); }, 0); 
+    function xf(f, g) { return bind(f, function(t) {
+        return lift(function(a, l) { return g(t, a); }, 0);
     }); }
     that.read_vector       = xf(that.read_list, Rserve.Robj.vector);
     that.read_list_no_tag  = xf(that.read_list, Rserve.Robj.list);
@@ -280,7 +280,7 @@ function parse(msg)
     if (resp === Rserve.Rsrv.RESP_ERR) {
         result.ok = false;
         result.status_code = status_code;
-        result.message = "ERROR FROM R SERVER: " + (Rserve.Rsrv.status_codes[status_code] || 
+        result.message = "ERROR FROM R SERVER: " + (Rserve.Rsrv.status_codes[status_code] ||
                                          status_code)
                + " " + result.header[0] + " " + result.header[1]
                + " " + msg.byteLength

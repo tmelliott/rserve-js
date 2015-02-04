@@ -2,7 +2,7 @@
 
 function make_basic(type, proto) {
     proto = proto || {
-        json: function() { 
+        json: function() {
             throw "json() unsupported for type " + this.type;
         }
     };
@@ -31,8 +31,8 @@ function make_basic(type, proto) {
 
 Rserve.Robj = {
     "null": function(attributes) {
-        return { 
-            type: "null", 
+        return {
+            type: "null",
             value: null,
             attributes: attributes,
             json: function() { return null; }
@@ -72,7 +72,7 @@ Rserve.Robj = {
             }
         }
     }),
-    symbol: make_basic("symbol", { 
+    symbol: make_basic("symbol", {
         json: function() {
             return this.value;
         }
@@ -115,7 +115,7 @@ Rserve.Robj = {
             case "plain_list":
                 return _.map(list, function(elt) { return elt.value.json(resolver); });
             case "plain_object":
-                return _.object(_.map(list, function(elt) { 
+                return _.object(_.map(list, function(elt) {
                     return [elt.name, elt.value.json(resolver)];
                 }));
             case "mixed_list":
@@ -134,7 +134,7 @@ Rserve.Robj = {
     vector_exp: make_basic("vector_exp"),
     int_array: make_basic("int_array", {
         json: function() {
-            if(this.attributes && this.attributes.type==='tagged_list' 
+            if(this.attributes && this.attributes.type==='tagged_list'
                && this.attributes.value[0].name==='levels'
                && this.attributes.value[0].value.type==='string_array') {
                 var levels = this.attributes.value[0].value.value;
