@@ -207,11 +207,11 @@ Rserve.Robj = {
 
 Rserve.Rsrv = {
     PAR_TYPE: function(x) { return x & 255; },
-    PAR_LEN: function(x) { return x >> 8; },
-    PAR_LENGTH: function(x) { return x >> 8; },
+    PAR_LEN: function(x) { return x >>> 8; },
+    PAR_LENGTH: function(x) { return x >>> 8; },
     par_parse: function(x) { return [Rserve.Rsrv.PAR_TYPE(x), Rserve.Rsrv.PAR_LEN(x)]; },
     SET_PAR: function(ty, len) { return ((len & 0xffffff) << 8 | (ty & 255)); },
-    CMD_STAT: function(x) { return (x >> 24) & 127; },
+    CMD_STAT: function(x) { return (x >>> 24) & 127; },
     SET_STAT: function(x, s) { return x | ((s & 127) << 24); },
 
     IS_OOB_SEND: function(x) { return (x & 0xffff000) === Rserve.Rsrv.OOB_SEND; },
@@ -604,7 +604,7 @@ function parse(msg)
     }
 
     var header = new Int32Array(msg, 0, 4);
-    var resp = header[0] & 16777215, status_code = header[0] >> 24;
+    var resp = header[0] & 16777215, status_code = header[0] >>> 24;
     var length = header[1], length_high = header[3];
     var msg_id = header[2];
     result.header = [resp, status_code, msg_id];
@@ -898,7 +898,7 @@ Rserve.create = function(opts) {
             // can't left shift value here because value will have bit 32 set and become signed..
             view.data_view().setInt32(0, Rserve.Rsrv.DT_SEXP + ((sz & 16777215) * Math.pow(2, 8)) + Rserve.Rsrv.DT_LARGE);
             // but *can* right shift because we assume sz is less than 2^31 or so to begin with
-            view.data_view().setInt32(4, sz >> 24);
+            view.data_view().setInt32(4, sz >>> 24);
             Rserve.write_into_view(value, view.skip(8), forced_type, convert_to_hash);
             return buffer;
         } else {
@@ -1377,7 +1377,7 @@ Rserve.write_into_view = function(value, array_buffer_view, forced_type, convert
     if (is_large) {
         payload_start = 8;
         write_view.setInt32(0, t + ((size - 8) << 8));
-        write_view.setInt32(4, (size - 8) >> 24);
+        write_view.setInt32(4, (size - 8) >>> 24);
     } else { 
         payload_start = 4;
         write_view.setInt32(0, t + ((size - 4) << 8));

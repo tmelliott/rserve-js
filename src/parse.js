@@ -255,7 +255,7 @@ function parse(msg)
     }
 
     var header = new Int32Array(msg, 0, 4);
-    var resp = header[0] & 16777215, status_code = header[0] >> 24;
+    var resp = header[0] & 16777215, status_code = header[0] >>> 24;
     var length = header[1], length_high = header[3];
     var msg_id = header[2];
     result.header = [resp, status_code, msg_id];
