@@ -4,6 +4,6 @@
   "description": "tests",
   "keywords": [ "aslkdjfhrserve" ],
   "dependencies": {
-    "rserve": "1.0.2"
+    "rserve": "2.0.1"
   }
 }
