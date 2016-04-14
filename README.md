@@ -12,7 +12,7 @@ equivalent of a *chainsaw*: there are ways to use it safely,
 
 ## Quick tour
 
-    $ git clone https://github.com/cscheid/rserve-js.git
+    $ git clone https://github.com/att/rserve-js.git
 
 Start Rserve in web-sockets mode:
 
