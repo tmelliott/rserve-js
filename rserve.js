@@ -377,7 +377,10 @@ function read(m)
         };
     }
 
-    function UTF8toUTF16(s) {
+    function decodeRString(s) {
+        // R encodes NA as a string containing just 0xff
+        if(s.length === 1 && s.charCodeAt(0) === 255)
+            return null;
         // UTF-8 to UTF-16
         // http://monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
         // also, we don't want to lose the value when reporting an error in decoding
@@ -408,7 +411,7 @@ function read(m)
                 var c = this.data_view.getInt8(this.offset++);
                 if (c) result = result + String.fromCharCode(c);
             }
-            return UTF8toUTF16(result);
+            return decodeRString(result);
         },
         read_stream: function(length) {
             var old_offset = this.offset;
@@ -442,7 +445,7 @@ function read(m)
             var current_str = "";
             for (var i=0; i<a.length; ++i)
                 if (a[i] === 0) {
-                    current_str = UTF8toUTF16(current_str);
+                    current_str = decodeRString(current_str);
                     result.push(current_str);
                     current_str = "";
                 } else {
