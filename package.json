@@ -3,6 +3,9 @@
     "version": "2.0.1",
     "description": "rserve-js provides a javascript implementation of the websocket Rserve protocol",
     "author": "Carlos Scheidegger <carlos.scheidegger@gmail.com> (http://cscheid.net)",
+    "contributors": [
+        "Gordon Woodhull <gordon@research.att.com>"
+    ],
     "main": "main.js",
     "homepage": "http://github.com/cscheid/rserve-js",
     "bugs": "http://github.com/cscheid/rserve-js/issues",
