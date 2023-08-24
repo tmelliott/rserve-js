@@ -4,12 +4,17 @@ import Link from "next/link";
 
 import Rserve from "../../../lib/Rserve";
 
+import _ from "lodash";
+const RJS = require("../../../old/main.js");
+
 export default function Home() {
   const R = new Rserve();
 
   if (typeof window !== "undefined") {
     // @ts-ignore
     window.R = R;
+    // @ts-ignore
+    window.oldR = RJS;
   }
 
   return (

@@ -392,6 +392,10 @@
       0x64: "ERR_securityClose",
     },
   };
+
+  // COMPLETE TO HERE
+
+  // READER
   (function () {
     function read(m) {
       var handlers = {};
@@ -789,6 +793,7 @@
   // that might put us in trouble wrt handheld devices.
   //////////////////////////////////////////////////////////////////////////////
 
+  // ENDIAN
   (function () {
     var _is_little_endian;
 
@@ -931,6 +936,8 @@
       };
     };
   })(this);
+
+  // CREATE
   (function () {
     function _encode_command(command, buffer, msg_id) {
       if (!_.isArray(buffer)) buffer = [buffer];
@@ -1436,6 +1443,8 @@
       return wrapped_ocap;
     };
   })();
+
+  // ERROR
   Rserve.RserveError = function (message, status_code) {
     this.name = "RserveError";
     this.message = message;

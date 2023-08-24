@@ -10,8 +10,6 @@ class Rserve {
     this.Rsrv = Rsrv;
     this.Robj = Robj;
   }
-
-  make_basic = make_basic;
 }
 
 export default Rserve;
